@@ -1,9 +1,9 @@
-import React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation'
+import React from 'react'
+import { StyleSheet, Image } from 'react-native'
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
 import Search from '../Components/Search'
-import FilmDetail from "../Components/FilmDetail";
-import Favorites from "../Components/Favorites";
+import FilmDetail from '../Components/FilmDetail'
+import Favorites from '../Components/Favorites'
 
 const SearchStackNavigator = createStackNavigator({
     Search: {
@@ -15,7 +15,19 @@ const SearchStackNavigator = createStackNavigator({
     FilmDetail: {
         screen: FilmDetail
     }
-});
+})
+
+const FavoritesStackNavigator = createStackNavigator({
+    Favorites: {
+        screen: Favorites,
+        navigationOptions: {
+            title: 'Favoris'
+        }
+    },
+    FilmDetail: {
+        screen: FilmDetail
+    }
+})
 
 const MoviesTabNavigator = createBottomTabNavigator(
     {
@@ -30,7 +42,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
             }
         },
         Favorites: {
-            screen: Favorites,
+            screen: FavoritesStackNavigator,
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
@@ -38,21 +50,23 @@ const MoviesTabNavigator = createBottomTabNavigator(
                         style={styles.icon}/>
                 }
             }
-        },
+        }
     },
-{
-    tabBarOptions: {
-        activeBackgroundColor: '#DDDDDD',
-        inactiveBackgroundColor: '#FFFFFF',
-        showLabel: false,
-        showIcon: true
+    {
+        tabBarOptions: {
+            activeBackgroundColor: '#DDDDDD',
+            inactiveBackgroundColor: '#FFFFFF',
+            showLabel: false,
+            showIcon: true
+        }
     }
-});
+)
 
 const styles = StyleSheet.create({
     icon: {
         width: 30,
         height: 30
     }
-});
+})
+
 export default createAppContainer(MoviesTabNavigator)
